@@ -38,7 +38,7 @@ jobs:
       #    para o repositório definido no <distributionManagement> do seu pom.xml.
       #    A flag -B (batch mode) é para rodar sem interação.
       - name: Publish package
-        run: mvn deploy -f pom.xml
+        run: mvn -B deploy
         # A autenticação já foi configurada no passo anterior pela action 'setup-java'
         # A variável GITHUB_TOKEN é injetada automaticamente pelo GitHub Actions
         env:
