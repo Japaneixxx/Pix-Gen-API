@@ -15,7 +15,7 @@
             <!-- O nome é descritivo -->
             <name>GitHub Packages</name>
             <!-- A URL segue o formato: https://maven.pkg.github.com/SEU_USUARIO/NOME_DO_REPOSITORIO -->
-            <url>https://maven.pkg.github.com/Japaneixxx/pix-gen-api</url>
+            <url>https://maven.pkg.github.com/Japaneixxx/Pix-Gen-API</url>
         </repository>
     </distributionManagement>
 
