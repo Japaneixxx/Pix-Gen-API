@@ -1,4 +1,6 @@
 # Pix-Gen-API
+[![](https://jitpack.io/v/Japaneixxx/Pix-Gen-API.svg)](https://jitpack.io/#Japaneixxx/Pix-Gen-API)
+
 
 API simples para geração de código "PIX Copia e Cola" (BR Code) de forma dinâmica e funcional.
 
