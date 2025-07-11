@@ -1,0 +1,45 @@
+# Nome do workflow que aparecerá na aba "Actions" do GitHub
+name: Publish package to GitHub Packages
+
+# Gatilho: Roda sempre que um push for feito na branch 'main'
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  publish:
+    # O job rodará em uma máquina virtual Ubuntu
+    runs-on: ubuntu-latest
+
+    # Permissões necessárias para o job poder escrever no GitHub Packages
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      # 1. Baixa o código do seu repositório para a máquina virtual
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente com Java 17 e autentica no Maven
+      #    Este é o passo mais importante!
+      #    A action 'setup-java' cria um arquivo settings.xml temporário
+      #    usando um token especial (GITHUB_TOKEN) que o GitHub Actions fornece.
+      - name: Set up JDK 17 and Maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          # O 'server-id' DEVE ser o mesmo que você tem no <id> do seu pom.xml
+          server-id: github
+
+      # 3. Publica o pacote usando o Maven
+      #    O comando 'deploy' irá compilar, testar e enviar o artefato
+      #    para o repositório definido no <distributionManagement> do seu pom.xml.
+      #    A flag -B (batch mode) é para rodar sem interação.
+      - name: Publish package
+        run: mvn -B deploy
+        # A autenticação já foi configurada no passo anterior pela action 'setup-java'
+        # A variável GITHUB_TOKEN é injetada automaticamente pelo GitHub Actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
